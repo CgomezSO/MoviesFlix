@@ -2,6 +2,7 @@ import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { Link } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native";
+import SearchBar from "../components/SearchBar";
 
 export default function Index() {
     return (
@@ -19,6 +20,9 @@ export default function Index() {
                     source={icons.logo}
                     className="w-12 h-10 mt-20 mb-5 mx-auto"
                 />
+                <View className="flex-1 mt-5 ">
+                    <SearchBar />
+                </View>
             </ScrollView>
         </View>
     );

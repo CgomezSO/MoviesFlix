@@ -1,6 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { main } from "@/services/AiModel";
+import Markdown from 'react-native-markdown-display';
 
 export default function Chat() {
     const [question, setQuestion] = useState<string>("");
@@ -11,7 +12,7 @@ export default function Chat() {
 
         try {
             const response = await main(question);
-            setGeminiResponse(response);
+            setGeminiResponse(response ?? "");
         } catch (error) {
             console.error("Error al obtener respuesta de Gemini:", error);
         }
@@ -38,10 +39,18 @@ export default function Chat() {
             </TouchableOpacity>
 
             {geminiResponse ? (
-                <View className="bg-white rounded-xl p-4">
-                    <Text className="text-black">{geminiResponse}</Text>
-                </View>
-            ) : null}
+  <View className="bg-white rounded-xl p-4 max-h-80">
+    <Markdown
+      style={{
+        body: { color: "black", fontSize: 16 },
+        heading1: { fontSize: 24, fontWeight: "bold", color: "black" },
+        strong: { fontWeight: "bold" },
+      }}
+    >
+      {geminiResponse}
+    </Markdown>
+  </View>
+) : null}
         </View>
     );
 }

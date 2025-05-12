@@ -1,36 +1,24 @@
 import { GoogleGenAI } from "@google/genai";
 
+
 export async function main(question: string) {
-    const ai = new GoogleGenAI({
-        apiKey: process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY,
-    });
-    const config = {
-        responseMimeType: "text/plain",
-    };
-    const model = "gemini-1.5-flash";
-    const contents = [
-        {
-            role: "user",
-            parts: [
-                {
-                    text: `${question}`,
-                },
-            ],
-        },
-    ];
+  const ai = new GoogleGenAI({
+    apiKey: process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY!,
+  });
 
-    const response = await ai.models.generateContentStream({
-        model,
-        config,
-        contents,
-    });
+  const model = "gemini-1.5-flash";
 
-    let fullResponse = "";
-    for await (const chunk of response) {
-        console.log(chunk.text);
-    }
+  const result = await ai.models.generateContent({
+    model,
+    contents: [
+      {
+        role: "user",
+        parts: [{ text: question }],
+      },
+    ],
+  });
 
-    return fullResponse;
+  return result.text;
 }
 
 // main(question);

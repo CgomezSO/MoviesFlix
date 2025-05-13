@@ -1,24 +1,23 @@
 import { GoogleGenAI } from "@google/genai";
 
-
 export async function main(question: string) {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY!,
-  });
+    const ai = new GoogleGenAI({
+        apiKey: process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY!,
+    });
 
-  const model = "gemini-1.5-flash";
+    const model = "gemini-1.5-flash";
 
-  const result = await ai.models.generateContent({
-    model,
-    contents: [
-      {
-        role: "user",
-        parts: [{ text: question }],
-      },
-    ],
-  });
+    const result = await ai.models.generateContent({
+        model,
+        contents: [
+            {
+                role: "user",
+                parts: [{ text: question }],
+            },
+        ],
+    });
 
-  return result.text;
+    return result.text;
 }
 
 // main(question);
